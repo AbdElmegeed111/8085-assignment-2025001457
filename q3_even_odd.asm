@@ -3,29 +3,23 @@
 ; Section: 2
 ; Question: Q3 - Count Even and Odd Numbers
 
-LDA 2500H       ; A = N
-MOV C, A        ; C = number of elements
-LXI H, 2501H    ; HL = start of array
-MVI B, 00H      ; B = even count
-MVI D, 00H      ; D = odd count
+LDA 2500H
+MOV C, A
+LXI H, 2501H
+MVI B, 00H
+MVI D, 00H
 
-LOOP: MOV A, M  ; A = current element
-      ANI 01H   ; test least significant bit
-      JZ EVEN   ; if zero -> even
-
-      INR D     ; odd: increment D
+LOOP: MOV A, M
+      ANI 01H
+      JZ EVEN
+      INR D
       JMP NEXT
-
-EVEN: INR B     ; even: increment B
-
-NEXT: INX H     ; point to next element
-      DCR C     ; decrement counter
-      JNZ LOOP  ; repeat until C = 0
-
+EVEN: INR B
+NEXT: INX H
+      DCR C
+      JNZ LOOP
 MOV A, B
-STA 2600H       ; store even count
-
+STA 2600H
 MOV A, D
-STA 2601H       ; store odd count
-
+STA 2601H
 HLT
